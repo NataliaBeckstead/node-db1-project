@@ -8,6 +8,7 @@ server.use(express.json());
 
 server.get('/api/accounts', (req, res) => {
     db('accounts')
+        .limit(10)
         .then(accounts => {
             res.status(200).json({ data: accounts})
         })
