@@ -65,4 +65,21 @@ server.put('/api/accounts/:id', (req, res) => {
         })
 });
 
+server.delete('/api/accounts/:id', (req, res) => { 
+    const { id } = req.params;
+    db('accounts')
+        .where({ id }) 
+        .del()
+        .then((count) => {
+            if (count > 0) {
+              res.status(200).json({message: "post has been deleted"})
+            } else{
+              res.status(400).json({message: 'cannot find post'})
+            }
+        })
+        .catch((error) => {
+            res.status(500).json({message: "server error"});
+        });
+});
+
 module.exports = server;
